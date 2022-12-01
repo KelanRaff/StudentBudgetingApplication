@@ -1,0 +1,3 @@
+An interactive distributed work cluster applied to a meta-level programmable display
+Student Dissertation idea distributer app
+Student Budgeting app taken from an excel sheet
