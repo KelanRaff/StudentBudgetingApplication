@@ -1,5 +1,6 @@
 import './App.css';
 import Graph from './Components/Graph';
+import Form from './Components/Form';
 
 function App() {
   return (
@@ -8,8 +9,9 @@ function App() {
         <h1 className="text-4xl py-8 mb-10 bg-slate-800 text-white rounded">Student Budgeting App</h1>
 
           {/* Grid Columns*/}
-          <div className="grid md: grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4">
             <Graph></Graph>
+            <Form></Form>
           </div>
       </div>
     </div>
