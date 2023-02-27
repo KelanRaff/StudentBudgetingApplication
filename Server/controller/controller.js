@@ -1,8 +1,16 @@
+const model = require('../models/model');
 
-
-//catagories
+//post
 function create_Categories(req,res){
-    res.json("Get Request from Categories")
+    const Create = new model.Categories({
+        type:"Investment",
+        color:'#FCBE44',
+    })
+
+    Create.save(function(err){
+        if(!err) return res.json(Create);
+        return res.status(400).json({message : 'Error while creating categories:' + err});
+    })
 }
 
 module.exports={
