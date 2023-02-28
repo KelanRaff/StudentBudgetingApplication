@@ -58,6 +58,7 @@ async function delete_transaction(req,res){
 
 //get http://localhost:8080/api/labels
 async function get_Labels(req,res){
+
     model.Transaction.aggregate([
         {
             $lookup:{
@@ -68,12 +69,12 @@ async function get_Labels(req,res){
             }
         },
         {
-            $unwind: "$categories_info"
+            $unwind: { "path": "$categories_info", "preserveNullAndEmptyArrays": true },
         }
     ]).then(result => {
         res.json(result);
     }).catch(error =>{
-        res.status(400).json("Lookup Collection Error" + error)
+        res.status(400).json("Lookup Collection Error");
     })
 }
 
