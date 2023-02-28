@@ -56,11 +56,33 @@ async function delete_transaction(req,res){
     }).clone().catch(function(err){res.json("Error while deleting Transaction Record")})
 }
 
+//get http://localhost:8080/api/labels
+async function get_Labels(req,res){
+    model.Transaction.aggregate([
+        {
+            $lookup:{
+                from:"categories",
+                localField:'type',
+                foreignField:"type",
+                as:"categories_info"
+            }
+        },
+        {
+            $unwind: "$categories_info"
+        }
+    ]).then(result => {
+        res.json(result);
+    }).catch(error =>{
+        res.status(400).json("Lookup Collection Error" + error)
+    })
+}
+
 
 module.exports={
     create_Categories,
     get_Categories,
     create_Transaction,
     get_Transaction,
-    delete_transaction
+    delete_transaction,
+    get_Labels
 }
