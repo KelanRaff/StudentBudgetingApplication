@@ -21,12 +21,20 @@ const obj = [
 
 export default function Labels(){
 
-    const {data, isFetching, isSuccess, isError} = api.useGetCategoriesQuery()
-    console.log(data)
+    const {data, isFetching, isSuccess, isError} = api.useGetLabelsQuery()
+    let Transactions;
+
+    if(isFetching){
+        Transactions = <div>Fetching</div>;
+    }else if(isSuccess){
+        Transactions = data.map((v,i)=><LabelComponent key={i} data={v}></LabelComponent>)
+    }else if(isError){
+        Transactions = <div>Error</div>
+    }
 
     return(
         <>
-        {obj.map((v,i)=><LabelComponent key={i} data={v}></LabelComponent>)}
+        {Transactions}
         </>
     )
 }
