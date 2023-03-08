@@ -11,6 +11,8 @@ export default function Form(){
     const onSubmit = async(data) => {
         if(!data)return {};
         await addTransaction(data).unwrap();
+        resetField('name');
+        resetField('amount');
     }
 
     return(
