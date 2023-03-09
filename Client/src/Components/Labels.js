@@ -1,5 +1,6 @@
 import React from "react";
 import {default as api} from "../store/apiSlice";
+import { getSum } from "../helper/helper";
 
 const obj = [
     {
@@ -27,6 +28,7 @@ export default function Labels(){
     if(isFetching){
         Transactions = <div>Fetching</div>;
     }else if(isSuccess){
+        getSum(data, 'type')
         Transactions = data.map((v,i)=><LabelComponent key={i} data={v}></LabelComponent>)
     }else if(isError){
         Transactions = <div>Error</div>
