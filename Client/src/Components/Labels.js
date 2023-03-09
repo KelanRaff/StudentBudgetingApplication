@@ -1,6 +1,6 @@
 import React from "react";
 import {default as api} from "../store/apiSlice";
-import { getSum } from "../helper/helper";
+import { getLabels } from "../helper/helper";
 
 const obj = [
     {
@@ -28,8 +28,8 @@ export default function Labels(){
     if(isFetching){
         Transactions = <div>Fetching</div>;
     }else if(isSuccess){
-        getSum(data, 'type')
-        Transactions = data.map((v,i)=><LabelComponent key={i} data={v}></LabelComponent>)
+        console.log(getLabels(data, 'type'))
+        Transactions = getLabels(data, 'type').map((v,i)=><LabelComponent key={i} data={v}></LabelComponent>)
     }else if(isError){
         Transactions = <div>Error</div>
     }
@@ -51,7 +51,7 @@ function LabelComponent({data}){
             </div>
             <h3 className='text-md'>{data.type ?? ''}</h3>
         </div>
-        <h3 className='font-bold'>{data.percent ?? 0}%</h3>
+        <h3 className='font-bold'>{Math.round(data.percent) ?? 0}%</h3>
     </div>
     )
 }
