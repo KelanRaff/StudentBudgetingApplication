@@ -30,7 +30,6 @@ export function chart_Data(transaction, custom){
 
     let bg = _.map(transaction, a=> a.color)
     bg=_.uniq(bg)
-    console.log(bg)
     let dataValue = getSum(transaction)
     const config = {
         data: {
@@ -48,4 +47,8 @@ export function chart_Data(transaction, custom){
       }
 
       return custom ?? config;
+}
+
+export function getTotal(transaction){
+    return _.sum(getSum(transaction));
 }
