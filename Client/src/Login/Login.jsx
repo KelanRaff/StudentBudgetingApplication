@@ -1,12 +1,22 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import LoginService from './LoginService';
 
-export const Login = (props) => {
+export const Login = () => {
+
     const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
+    const [password, setPass] = useState('');
+
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
+
+        if(LoginService.validateLogin(email, password)) {
+            navigate('/budget', { replace: true })
+        } else {
+            alert('Login information incorrect. Please try again.');
+        }
     }
 
    return (
@@ -16,10 +26,12 @@ export const Login = (props) => {
             <label htmlfor="email">Email</label>
             <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youraddress@gmail.com" id="email" name="email"></input>
             <label htmlfor="password">Password</label>
-            <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password"></input>
+            <input value={password} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password"></input>
             <button type="submit">Login In</button>
         </form>
-            <button className='link-btn' onClick={() => props.onFormSwitch('register')}> Dont have an account? Register here</button>
+        <Link to="/register">
+            <button className='link-btn'> Dont have an account? Register here</button>
+        </Link>
     </div>
    )
 }

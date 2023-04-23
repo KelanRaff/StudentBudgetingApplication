@@ -1,13 +1,22 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import LoginService from './LoginService';
 
-export const Register = (props) => {
+export const Register = () => {
     const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
+    const [password, setPass] = useState('');
     const [name, setName] = useState('');
+
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
+        if(LoginService.addUser(email, password)) {
+            alert('User successfully registered.')
+            navigate('/login', { replace: true })
+        } else {
+            alert('Something went wrong. Please try again.');
+        }
     }
 
     return (
@@ -21,10 +30,12 @@ export const Register = (props) => {
                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youraddress@gmail.com" id="email" name="email"></input>
 
                 <label htmlfor="password">Password</label>
-                <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password"></input>
+                <input value={password} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password"></input>
                 <button type="submit">Login In</button>
             </form>
-            <button className='link-btn' onClick={() => props.onFormSwitch('login')}> Already have an account? Login here</button>
+            <Link to="/login">
+                <button className='link-btn'> Already have an account? Login here</button>
+            </Link>
         </div>
        )
 }
